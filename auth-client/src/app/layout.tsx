@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/utils/authOptions";
 
 export const metadata: Metadata = {
   title: "Next Auth",
@@ -13,10 +15,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
+  const session = await getServerSession(authOptions)
+
   return (
     <html lang="en" data-theme="light">
       <body>
-        <Navbar />
+        <Navbar session={session} />
         <div className="min-h-screen w-[90%] mx-auto">{children}</div>
       </body>
     </html>
