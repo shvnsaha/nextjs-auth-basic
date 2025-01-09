@@ -1,4 +1,5 @@
 "use client";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -57,7 +58,7 @@ const LoginPage = () => {
               <input
                 {...register("password")}
                 type="password"
-                placeholder="Email"
+                placeholder="Password"
                 className="input input-bordered"
                 required
               />
@@ -85,7 +86,9 @@ const LoginPage = () => {
                 alt="google logo"
               />
             </button>
-            <button className="btn btn-circle">
+            <button className="btn btn-circle" onClick={()=>signIn("github",{
+              callbackUrl:"http://localhost:3000/dashboard"
+            })}>
               <Image
                 src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
                 width={35}
